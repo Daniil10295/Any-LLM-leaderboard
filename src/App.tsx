@@ -159,7 +159,9 @@ function App() {
     const model = catalog.models.find((item) => item.id === id)
     return model ? [model] : []
   })
-  const comparisonBenchmarks = catalog.benchmarks.filter((item) => comparisonCategory === 'all' || item.category === comparisonCategory)
+  const comparisonBenchmarks = catalog.benchmarks
+    .filter((item) => comparisonCategory === 'all' || item.category === comparisonCategory)
+    .filter((item) => comparisonModels.some((model) => getResult(model, item.id)))
 
   const selectedModel = visibleModels.find((model) => model.id === selectedId) ?? visibleModels[0]
   const selectedProvider = selectedModel ? providerFor(selectedModel) : undefined
